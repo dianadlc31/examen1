@@ -1,14 +1,38 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
+    <ion-title style="text-align: center; background-color: #FFA69E">
+      Videojuegos y consolas
     </ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="buscar()">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="favoritos(juego)">
+            <ion-icon name="heart"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding style="background-color: #93E1D8">
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor= "let juego of juegos" col-4>
+      <ion-card (click)="verProducto(juego)">
+        <img *ngIf= "juego.ad.hasOwnProperty('thumbnail')==true"
+        src="http://img.segundamano.mx/cover/{{juego.ad.thumbnail.path}}">
+        <img *ngIf= "juego.ad.hasOwnProperty('thumbnail')==false"
+        src="https://cdn5.dibujos.net/dibujos/pintados/201110/cd754578aa8f05150d4fc50e52065a23.png">
+        <ion-card-content style="background-color: #DDFFF7">
+          <h1 *ngIf= "juego.ad.hasOwnProperty('subject')">{{juego.ad.subject}}</h1>
+          <h5 *ngIf= "juego.ad.hasOwnProperty('locations')">{{juego.ad.locations[0].locations[0].label}}, {{juego.ad.locations[0].label}}</h5>
+          <h2 *ngIf= "juego.ad.hasOwnProperty('prices')">{{juego.ad.prices[0].label}}</h2>
+          <p *ngIf= "juego.ad.hasOwnProperty('list_time')"> Publicado el {{juego.ad.list_time.label}}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>
